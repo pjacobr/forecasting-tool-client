@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            table {
+                /* border-collapse: collapse; */
+                border: 2px black solid;
+                font: 12px sans-serif;
+                width: 80%;
+                height: 50px;
+            }
+
+            tr{
+                height: 10px;
+                border: 1px black solid;
+            }
+            
+            td {
+                border: 1px black solid;
+                padding: 5px;
+                width: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="http://d3js.org/d3.v5.min.js"></script>
+        <!-- <script src="d3.min.js?v=3.2.8"></script> -->
+
+        <script type="text/javascript"charset="utf-8">
+
+            var count = 0;
+            var catch_arr = [];
+            d3.csv("data.csv", function(d) {
+                return d;
+            }).then(function(results){
+                var headers = results['columns']
+                console.log(results)
+
+                var container = d3.select("body")
+                    .append("table")
+                    .append("tr")
+                    .data(function(){
+                        for (k in results.columns){
+                            d3.select("body > table > tr").append("th")
+                                .text(results.columns[k]);
+                        }
+                    });
+
+                d3.selectAll("body > table > tr")
+                    .data(results).enter()
+                    .append("tr");
+                    // .data(function(d){
+                    //     for (k in results){
+                    //         d3.select(this).append("td")
+                    //             .text(results.columns[k]);
+                    //     }
+                    // }).enter().append("tr");
+            });
+            //     d3.select("table").append("tr")
+            //     .data(results.columns)
+            //     .select("table")
+            //     .data(function(d,i){
+            //         for(k in d){
+            //             d3.select(this).append("th").text(d[k])
+            //         }
+            //     });
+
+            //     var container = d3.select("body")
+            //     .append("table")
+            //     .selectAll("tr")
+            //         .data(results).enter()
+            //         .append("tr")
+            //     .selectAll("tr")
+            //         .data(function(d,i){
+            //             for (k in d){
+            //                 d3.select(this).append("td")
+            //                 .text(d[k])
+            //             }
+            //         });
+            // },
+            // function(errorMessage){
+            //     console.log("error");
+            // });
+
+
+            // console.log(catch_arr);
+            
+        </script>
+    </body>
+</html>
